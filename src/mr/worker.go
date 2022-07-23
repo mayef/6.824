@@ -39,50 +39,50 @@ func Worker(mapf func(string, string) []KeyValue, reducef func(string, []string)
 	// uncomment to send the Example RPC to the coordinator.
 	// CallExample()
 
-	oname := "mr-"
+	// oname := "mr-"
 
-	failedCount := 0
-	// ask coordinator for a task
-	for failedCount < 3 {
-		task := AskTask()
-		if (task.Type == 0) {
-			failedCount++
-			continue
-		}
+	// failedCount := 0
+	// // ask coordinator for a task
+	// for failedCount < 3 {
+	// 	task := AskTask()
+	// 	if (task.Type == 0) {
+	// 		failedCount++
+	// 		continue
+	// 	}
 
-		if (task.Type == 1) {
-			filename := "../main" + task.Filename
-			file, err := os.Open(filename)
-			if err != nil {
-				log.Fatalf("cannot open %v", filename)
-			}
-			content, err := ioutil.ReadAll(file)
-			if err != nil {
-				log.Fatalf("cannot read %v", filename)
-			}
-			file.Close()
-			kva := mapf(filename, string(content))
+	// 	if (task.Type == 1) {
+	// 		filename := "../main" + task.Filename
+	// 		file, err := os.Open(filename)
+	// 		if err != nil {
+	// 			log.Fatalf("cannot open %v", filename)
+	// 		}
+	// 		content, err := ioutil.ReadAll(file)
+	// 		if err != nil {
+	// 			log.Fatalf("cannot read %v", filename)
+	// 		}
+	// 		file.Close()
+	// 		kva := mapf(filename, string(content))
 
-			// combine
-			i := 0
-			for i < len(kva) {
-				j := i + 1
-				for j < len(kva) && kva[j].Key == kva[i].Key {
-					j++
-				}
-				values := []string{}
-				for k := i; k < j; k++ {
-					values = append(values, kva[k].Value)
-				}
-				output := reducef(kva[i].Key, values)
+	// 		// combine
+	// 		i := 0
+	// 		for i < len(kva) {
+	// 			j := i + 1
+	// 			for j < len(kva) && kva[j].Key == kva[i].Key {
+	// 				j++
+	// 			}
+	// 			values := []string{}
+	// 			for k := i; k < j; k++ {
+	// 				values = append(values, kva[k].Value)
+	// 			}
+	// 			output := reducef(kva[i].Key, values)
 
-				os.
-				fmt.Fprintf(ofile, "%v %v\n", kva[i].Key, output)
+	// 			os.
+	// 			fmt.Fprintf(ofile, "%v %v\n", kva[i].Key, output)
 
-				i = j
-			}
-		}
-	}
+	// 			i = j
+	// 		}
+	// 	}
+	// }
 
 }
 

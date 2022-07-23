@@ -12,7 +12,7 @@ type Coordinator struct {
 
 }
 
-func (c *Coordinator) task
+// func (c *Coordinator) task
 
 
 // Your code here -- RPC handlers for the worker to call.
